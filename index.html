@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>API Reference</title>
 
+    <link href="images/favicon.ico" rel="icon" type="image/ico" />
+
     <style>
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -201,7 +203,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -209,12 +211,9 @@
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo.png" class="logo" alt="Logo" />
+      <img src="images/logo.svg" class="logo" alt="Logo" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -222,87 +221,144 @@
         <ul class="search-results"></ul>
       <div id="toc" class="toc-list-h1">
           <li>
-            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
           </li>
           <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+            <a href="#rate-limiting" class="toc-h1 toc-link" data-title="rate-limiting">Rate Limiting</a>
           </li>
           <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
-                  </li>
-                  <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
-                  </li>
-                  <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#scopes" class="toc-h2 toc-link" data-title="scopes">Scopes</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+            <a href="#people" class="toc-h1 toc-link" data-title="people">People</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-people" class="toc-h2 toc-link" data-title="get-all-people">Get All People</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-specific-person" class="toc-h2 toc-link" data-title="get-a-specific-person">Get a Specific Person</a>
+                  </li>
+                  <li>
+                    <a href="#create-a-new-person" class="toc-h2 toc-link" data-title="create-a-new-person">Create a New Person</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#groups" class="toc-h1 toc-link" data-title="groups">Groups</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-groups" class="toc-h2 toc-link" data-title="get-all-groups">Get All Groups</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-specific-group" class="toc-h2 toc-link" data-title="get-a-specific-group">Get a Specific Group</a>
+                  </li>
+                  <li>
+                    <a href="#create-a-new-group" class="toc-h2 toc-link" data-title="create-a-new-group">Create a New Group</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
           </li>
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='https://textinchurch.com/developer' target_blank'>Sign up for an Authentication Key</a></li>
+            <li><a href='https://github.com/lord/slate' target='_blank'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Welcome to Text In Church&#39;s API! You can use this API to access all our API endpoints, such as the Person API to look up or create people, or the Groups API to create a new group.</p>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
+<p>The API is organized around REST. All requests should be made over SSL. All request and response bodies, including errors, are encoded in JSON.</p>
+<h1 id='rate-limiting'>Rate Limiting</h1>
+<p>Usually the API is rate limited to 100 requests per 20 seconds per user, but that limit and time period are subject to change either up or down as necessary. If you think your app may be affected by rate limits, it should be developed to adjust dynamically inspecting the values of X-PCO-API-Request-Rate-Limit and X-PCO-API-Request-Rate-Period in the HTTP headers. Your current count is discoverable in the X-PCO-API-Request-Rate-Count key. Requests that exceed the current limit will return an HTTP status 429. The number of seconds to wait until you can retry those requests is in the key Retry-After.</p>
 <h1 id='authentication'>Authentication</h1>
+<p>Authentication to the Text In Church API requires the use of <a href="https://en.wikipedia.org/wiki/OAuth">OAuth</a> version 2.0.</p>
+
+<p>Visit <a href="https://textinchurch.com/developer/applications">textinchurch.com/developer/applications</a>
+to create an OAuth application token.</p>
+
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>Example of sending the POST request using curl:</p>
 </blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
+<pre class="highlight plaintext"><code>curl -X POST https://api.textinchurch.com/oauth/token \
+     -F grant_type=authorization_code \
+     -F code=1234567890 \
+     -F client_id=2345678901 \
+     -F client_secret=3456789012 \
+     -F redirect_uri=https://mywebsite.com/auth/complete
 </code></pre>
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>Sample response containing the access token:</p>
 </blockquote>
+<pre class="highlight plaintext"><code>{
+  "access_token": "1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+  "token_type": "bearer",
+  "expires_in": 7200,
+  "refresh_token": "1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+  "scope": "people",
+  "created_at": 1469553476
+}
+</code></pre>
+<blockquote>
+<p>Pass the access token in all subsequent API requests:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>curl -H 'Authorization: Bearer 1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef' https://api.textinchurch.com/people
+</code></pre>
+<p>Make sure your app conforms to the <a href="http://oauth.net/2/">OAuth 2.0</a> specification. Generally, to authenticate a user,
+follow these steps:</p>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<ol>
+<li><p>Redirect the user&#39;s browser to <code>https://api.textinchurch.com/oauth/authorize?client_id=CLIENT_ID&amp;redirect_uri=https://mywebsite.com/auth/complete&amp;response_type=code&amp;scope=people</code>
+(replace <code>CLIENT_ID</code> and <code>https://mywebsite.com/auth/complete</code> with your actual redirect URI).</p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>If you need different scope, replace <code>scope=people</code> appropriately (see &quot;Scopes&quot; section below).</p></li>
+<li><p>Text In Church will redirect the user&#39;s browser back to the given redirect URI with a <code>code</code> param.</p></li>
+<li><p>Send a POST request in the background to <code>https://api.textinchurch.com/oauth/token</code> with the following params:
+<code>{&quot;grant_type&quot;: &quot;authorization_code&quot;, &quot;code&quot;: &quot;CODE_FROM_STEP_2&quot;, &quot;client_id&quot;: &quot;CLIENT_ID&quot;, &quot;client_secret&quot;: &quot;CLIENT_SECRET&quot;, &quot;redirect_uri&quot;: &quot;https://mywebsite.com/auth/complete&quot;}</code>
+(replace <code>CLIENT_ID</code>, <code>CLIENT_SECRET</code>, <code>CODE_FROM_STEP_2</code>, and the redirect URI appropriately).</p></li>
+<li><p>The response you get back will contain the access token and other information.</p></li>
+<li><p>Use the access token for all API requests by passing it in the <code>Authorization</code> header, using the <code>Bearer</code> authentication scheme.</p></li>
+</ol>
 
-<p><code>Authorization: meowmeowmeow</code></p>
+<p>OAuth access tokens expire after 2 hours from the time they are issued, but we also provide a
+<a href="https://tools.ietf.org/html/rfc6749#section-1.5">refresh token</a> you can use to get a new access token at any time,
+even after the access token expires, without forcing the user to re-authorize.</p>
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<p>We will honor refresh tokens for up to 1 year after the date its associated access token was issued.
+This means that, if your app does not issue a refresh for 1 year, then your user will need to re-authorize.</p>
+<h3 id='scopes'>Scopes</h3>
+<p>Each Text In Church app is a distinct <a href="http://tools.ietf.org/html/rfc6749#section-3.3">OAuth scope</a>.</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<table><thead>
+<tr>
+<th>App</th>
+<th>Scope</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Groups</td>
+<td>groups</td>
+</tr>
+<tr>
+<td>People</td>
+<td>people</td>
+</tr>
+</tbody></table>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+<p>Authorization URL is <a href="https://api.textinchurch.com/oauth/authorize">https://api.textinchurch.com/oauth/authorize</a>
+Token URL is <a href="https://api.textinchurch.com/oauth/token">https://api.textinchurch.com/oauth/token</a>
+When authorizing, you can request scopes using the <code>scope</code> parameter. The value should be a space-separated list of scopes.
+The value for <code>response_type</code> should be <code>code</code></p>
+<h1 id='people'>People</h1><h2 id='get-all-people'>Get All People</h2><pre class="highlight shell tab-shell"><code>curl -v -u token:secret <span class="s2">"https://api.textinchurch.com/people"</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
@@ -310,77 +366,108 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
+    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Marianne"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bagley"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="s2">"MarianneBBagley@rhyta.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phone"</span><span class="p">:</span><span class="s2">"620-225-4989"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_1"</span><span class="p">:</span><span class="s2">"1866 Roosevelt Road"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_2"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"city"</span><span class="p">:</span><span class="s2">"Dodge City"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"state"</span><span class="p">:</span><span class="s2">"KS"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"zip"</span><span class="p">:</span><span class="s2">"67801"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+    </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alfonso"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Larry"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"email"</span><span class="p">:</span><span class="s2">"AlfonsoLLarry@jourrapide.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phone"</span><span class="p">:</span><span class="s2">"805-764-0954"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_1"</span><span class="p">:</span><span class="s2">"4316 Par Drive"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_2"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"city"</span><span class="p">:</span><span class="s2">"Pomona"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"state"</span><span class="p">:</span><span class="s2">"CA"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"zip"</span><span class="p">:</span><span class="s2">"91766"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
+<p>This endpoint retrieves all people.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
+<p><code>GET https://api.textinchurch.com/people</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
+<th>Value</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>where[first_name]</td>
+<td>string</td>
+<td>query on a specific first name</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>where[last_name]</td>
+<td>string</td>
+<td>query on a specific last name</td>
+</tr>
+<tr>
+<td>where[email]</td>
+<td>string</td>
+<td>query on a specific email</td>
+</tr>
+<tr>
+<td>where[phone]</td>
+<td>string</td>
+<td>query on a specific mobile phone number</td>
+</tr>
+<tr>
+<td>per_page</td>
+<td>25</td>
+<td>how many records to return per page (min=1, max=100, default=25)</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>0</td>
+<td>get results from given start</td>
+</tr>
+<tr>
+<td>order</td>
+<td>first_name</td>
+<td>prefix with a hyphen (-first_name) to reverse the order</td>
+</tr>
+<tr>
+<td>order</td>
+<td>last_name</td>
+<td>prefix with a hyphen (-last_name) to reverse the order</td>
+</tr>
+<tr>
+<td>order</td>
+<td>created_at</td>
+<td>prefix with a hyphen (-created_at) to reverse the order</td>
 </tr>
 </tbody></table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<h2 id='get-a-specific-person'>Get a Specific Person</h2><pre class="highlight shell tab-shell"><code>curl -v -u token:secret <span class="s2">"https://api.textinchurch.com/people/2"</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+  </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alfonso"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Larry"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"email"</span><span class="p">:</span><span class="s2">"AlfonsoLLarry@jourrapide.com"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"phone"</span><span class="p">:</span><span class="s2">"805-764-0954"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"address_1"</span><span class="p">:</span><span class="s2">"4316 Par Drive"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"address_2"</span><span class="p">:</span><span class="s2">""</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"city"</span><span class="p">:</span><span class="s2">"Pomona"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"state"</span><span class="p">:</span><span class="s2">"CA"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"zip"</span><span class="p">:</span><span class="s2">"91766"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<p>This endpoint retrieves a specific person.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<p><code>GET https://api.textinchurch.com/people/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -390,37 +477,139 @@ Remember — a happy kitten is an authenticated kitten!
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>The ID of the person to retrieve</td>
 </tr>
 </tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -X DELETE
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<h2 id='create-a-new-person'>Create a New Person</h2><pre class="highlight shell tab-shell"><code>curl -v -u token:secret -X POST -d
+<span class="s1">'{"data":{"data":{...}}}'</span> <span class="s2">"https://api.textinchurch.com/people"</span>
+</code></pre>
+<p>This endpoint creates a new person.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST https://api.textinchurch.com/people</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>first_name</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>email</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>phone</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>address</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>address_2</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>city</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>2 character abbreviation</td>
+</tr>
+<tr>
+<td>zip</td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id='groups'>Groups</h1><h2 id='get-all-groups'>Get All Groups</h2><pre class="highlight shell tab-shell"><code>curl -v -u token:secret  <span class="s2">"https://api.textinchurch.com/groups"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Super Group"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is a longer description of the group's purpose."</span><span class="p">,</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Another Awesome Group"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Just more details about how great this group is."</span><span class="p">,</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>This endpoint retrieves all groups.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET https://api.textinchurch.com/groups</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>where[group_name]</td>
+<td>string</td>
+<td>query on a specific group name</td>
+</tr>
+<tr>
+<td>per_page</td>
+<td>25</td>
+<td>how many records to return per page (min=1, max=100, default=25)</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>0</td>
+<td>get results from given start</td>
+</tr>
+<tr>
+<td>order</td>
+<td>group_name</td>
+<td>prefix with a hyphen (-group_name) to reverse the order</td>
+</tr>
+<tr>
+<td>order</td>
+<td>updated_at</td>
+<td>prefix with a hyphen (-updated_at) to reverse the order</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-group'>Get a Specific Group</h2><pre class="highlight shell tab-shell"><code>curl -v -u token:secret  <span class="s2">"https://api.textinchurch.com/groups/2"</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Another Awesome Group"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Just more details about how great this group is."</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
+<p>This endpoint retrieves a specific group.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://api.textinchurch.com/groups/&lt;ID&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -429,13 +618,33 @@ Remember — a happy kitten is an authenticated kitten!
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td>The ID of the group to retrieve</td>
+</tr>
+</tbody></table>
+<h2 id='create-a-new-group'>Create a New Group</h2><pre class="highlight shell tab-shell"><code>curl -v -u token:secret -X POST -d
+<span class="s1">'{"data":{"data":{...}}}'</span> <span class="s2">"https://api.textinchurch.com/groups"</span>
+</code></pre>
+<p>This endpoint creates a new group.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST https://api.textinchurch.com/groups</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+</tr>
+<tr>
+<td>comments</td>
+<td>string</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files...just save them to the `includes` folder and add them to the top of your `index.md`'s frontmatter. Files are included in the order listed.</aside>
-
-<p>The Kittn API uses the following error codes:</p>
+<p>The Text In Church API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -445,7 +654,7 @@ Remember — a happy kitten is an authenticated kitten!
 </thead><tbody>
 <tr>
 <td>400</td>
-<td>Bad Request -- Your request sucks.</td>
+<td>Bad Request -- Your request is invalid.</td>
 </tr>
 <tr>
 <td>401</td>
@@ -453,31 +662,15 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden -- The kitten requested is hidden for administrators only.</td>
+<td>Forbidden -- The resource requested is hidden for administrators only.</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found -- The specified kitten could not be found.</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed -- You tried to access a kitten with an invalid method.</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone -- The kitten requested has been removed from our servers.</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&#39;m a teapot.</td>
+<td>Not Found -- The specified resource could not be found.</td>
 </tr>
 <tr>
 <td>429</td>
-<td>Too Many Requests -- You&#39;re requesting too many kittens! Slow down!</td>
+<td>Too Many Requests -- You&#39;re request has exceeded the rate limit.</td>
 </tr>
 <tr>
 <td>500</td>
@@ -493,9 +686,6 @@ Remember — a happy kitten is an authenticated kitten!
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
           </div>
       </div>
     </div>
