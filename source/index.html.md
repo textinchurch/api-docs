@@ -5,8 +5,8 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - shell
 
 toc_footers:
-  - <a href='https://textinchurch.com/developer' target="_blank>Sign up for an Authentication Key</a>
-  - <a href='https://github.com/lord/slate' target="_blank">Documentation Powered by Slate</a>
+  - <a href='https://textinchurch.com/developer' target_blank'>Sign up for an Authentication Key</a>
+  - <a href='https://github.com/lord/slate' target='_blank'>Documentation Powered by Slate</a>
 
 includes:
   - authentication
