@@ -5,7 +5,7 @@ Authentication to the Text In Church API requires the use of [OAuth](https://en.
 Visit [textinchurch.com/developer/applications](https://textinchurch.com/developer/applications)
 to create an OAuth application token.
 
-> Example of sending the POST request (step 3) using curl:
+> Example of sending the POST request using curl:
 
 ```
 curl -X POST https://api.textinchurch.com/oauth/token \
