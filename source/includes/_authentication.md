@@ -38,7 +38,7 @@ curl -H 'Authorization: Bearer 1234567890abcdef1234567890abcdef1234567890abcdef1
 Make sure your app conforms to the [OAuth 2.0](http://oauth.net/2/) specification. Generally, to authenticate a user,
 follow these steps:
 
-1.  Redirect the user's browser to `https://api.textinchurch.com/oauth/authorize?client_id=CLIENT_ID&redirect_uri=https://mywebsite.com/auth/complete&response_type=code&scope=people`
+1.  Redirect the user's browser to `https://api.textinchurch.com/oauth/authorize?client_id=CLIENT_ID&redirect_uri=https://mywebsite.com/auth/complete&response_type=code&scope=people&state=XYZ`
     (replace `CLIENT_ID` and `https://mywebsite.com/auth/complete` with your actual redirect URI).
 
     If you need different scope, replace `scope=people` appropriately (see "Scopes" section below).
@@ -74,3 +74,7 @@ Authorization URL is [https://api.textinchurch.com/oauth/authorize](https://api.
 Token URL is [https://api.textinchurch.com/oauth/token](https://api.textinchurch.com/oauth/token)
 When authorizing, you can request scopes using the `scope` parameter. The value should be a space-separated list of scopes.
 The value for `response_type` should be `code`
+
+### State
+
+State is an optional parameter that can be passed in the request URL. You can find more details about it in the [RFC](https://tools.ietf.org/html/rfc6749#section-4.1.1).
